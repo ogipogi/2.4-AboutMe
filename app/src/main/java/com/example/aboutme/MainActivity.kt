@@ -17,6 +17,11 @@ class MainActivity : AppCompatActivity() {
             addNickname(it)
             hideKeyboard(it)
         }
+
+        nickname_text.setOnClickListener {
+            updateNickname(it)
+            showKeyboard(nickname_edit)
+        }
     }
 
     private fun addNickname(view: View) {
@@ -28,9 +33,21 @@ class MainActivity : AppCompatActivity() {
         nickname_text.visibility = View.VISIBLE
     }
 
-    private fun hideKeyboard(it: View) {
+    private fun updateNickname(view: View) {
+        nickname_edit.visibility = View.VISIBLE
+        done_button.visibility = View.VISIBLE
+        view.visibility = View.GONE
+        nickname_edit.requestFocus()
+    }
+
+    private fun hideKeyboard(view: View) {
         val inputMethodManager =
             getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(it.windowToken, 0)
+        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
+    private fun showKeyboard(view: View) {
+        val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.showSoftInput(view, 0)
     }
 }
